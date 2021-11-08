@@ -11,13 +11,21 @@ completeSen = senFiller[secondSec] +" " + senStarter[firstSec]
 
 }
 
-
-
+function textToSpeech(){
+    
+    const voices = window.speechSynthesis.getVoices();
+    const lastVoice = voices[19];
+    window.speechSynthesis.cancel();
+    let textVoice = new SpeechSynthesisUtterance(completeSen);
+    textVoice.voice = lastVoice
+    speechSynthesis.speak(textVoice);
+}
 
 //alert(completeSen)
 function showText(){
 
 randomiseSen()
+textToSpeech()
 
 let cookieStrip = document.createElement("div")
 cookieStrip.classList.add("cStrip")
@@ -33,4 +41,5 @@ cookieStrip.appendChild(image) */
 
 }
 //document.body.addEventListener("click", showText)
-document.getElementById("cookie").addEventListener("click", showText)
+//document.getElementById("cookie").addEventListener("click", showText)
+window.addEventListener("click", showText)
