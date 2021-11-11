@@ -1,13 +1,18 @@
 /* Array for sentence starter*/
-let senStarter =[ "You are", "You are not"]
-let senFiller = ["Blessed","Unlucky"]
-
-
+let senStarter =[ "you are", "that you may not be","you may acquire in abundance"]
+let senFiller = ["Blessed","Unlucky","Fortune","Wealth"]
+let cookieNum = 0
+let cookie = document.getElementsByClassName("cookie")[0]
+let badSentences =[] // CREATES EMPTY ARRAY
+xz()
+let badSentencesJSON =localStorage.getItem("badSentences") // GETS STORED KEY/ITEMS
+badSentences=JSON.parse(badSentencesJSON) // TURNS STORED ITEMS INTO ARRAY
 
 function randomiseSen(){
 firstSec = Math.floor(Math.random()*(senStarter.length))
 secondSec = Math.floor(Math.random()*(senFiller.length))
 completeSen = senFiller[secondSec] +" " + senStarter[firstSec]
+
 
 }
 
@@ -21,25 +26,59 @@ function textToSpeech(){
     speechSynthesis.speak(textVoice);
 }
 
-//alert(completeSen)
-function showText(){
+function badText(){
 
-randomiseSen()
-textToSpeech()
+        
+        let fortune = document.getElementById("container").lastChild.innerHTML
+        badSentences.push(fortune) // PUSHES FORTUNE TO ARRAY
+        localStorage.setItem("badSentences", JSON.stringify(badSentences)) //STORES STRING
+        
 
-let cookieStrip = document.createElement("div")
-cookieStrip.classList.add("cStrip")
-document.body.appendChild(cookieStrip)
-document.getElementById("cookie").innerHTML=" "
-document.getElementById("cookie").appendChild(cookieStrip)
+        
+    }
 
-cookieStrip.innerHTML=completeSen
-/*
-let image = document.createElement("img")
-image.src= "https://creazilla-store.fra1.digitaloceanspaces.com/emojis/54367/fortune-cookie-emoji-clipart-md.png"
-cookieStrip.appendChild(image) */
+
+function showText(event){
+    
+    
+    cookieNum += 1
+    do{
+        randomiseSen()
+    } while (badSentences.includes(completeSen))
+    
+    textToSpeech()
+    
+    
+    let fortune = document.createElement("div")
+    fortune.id = "cookie" + cookieNum
+    fortune.classList.add("cStrip")
+    fortune.innerHTML=completeSen
+    document.body.appendChild(fortune)
+    document.getElementById("container").innerHTML=" "
+    document.getElementById("container").appendChild(fortune)
+    //let cookie = document.getElementsByClassName("cookie")[0]
+    cookie.style.animationName = "myAnimation" //applies/starts animation from css file
+    setTimeout(resetAnimation,5000) // resets animation in 3secs time to be clicked again
+
+    
+    
 
 }
+
+function xz() {
+    if (localStorage.getItem("badSentences")=== null){ //checks if badSentences is empty or not
+        localStorage.setItem("badSentences", "[]") //forces a value within it or else program doesn't work
+    }
+}
+
+function resetAnimation(){
+    //let cookie = document.getElementsByClassName("cookie")[0]
+    cookie.style.animationName = ""
+    
+
+}
+
 //document.body.addEventListener("click", showText)
 //document.getElementById("cookie").addEventListener("click", showText)
-window.addEventListener("click", showText)
+//window.addEventListener("click", showText)
+cookie.addEventListener("click", showText)

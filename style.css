@@ -1,12 +1,83 @@
-.cStrip{background-color: rgb(71, 241, 171);
+
+.cStrip{background-color: whitesmoke;
         text-align: center;
-        border-style: double;
-        width: 500px;
+        border-style: solid;
+        width: 200px;
         margin: auto;
-        padding: 10px;
+        padding:10px;
         
 }
 
+.container{position: relative;
+           margin: auto;
+           text-align: center;
+           padding: auto;
+        
+}
 
-body{background-color: rgb(241, 167, 167);
+@keyframes myMove{
+  0%{
+    opacity: 1;
+    /*transform: rotateX(90deg);*/
+    transform: scaleX(0);
+  }
+  50%{
+    opacity: 1;
+    /*transform: rotateX(0deg);*/
+    transform: scaleX(1);
+  }
+  100%{
+    display:none;
+    opacity: 0;
+    /*transform: rotateX(90deg);*/
+    
+  }
+}
+
+.cStrip{
+    animation-name: myMove;
+    animation-duration: 3000ms;
+    animation-fill-mode:both;
+    animation-delay: 1.5s;
+}
+
+
+body{background-color:whitesmoke;
+     margin: 0;
+     padding: 0;
     }
+
+    div.cookie {
+        margin: auto;
+        content:url(https://i.quotev.com/img/q/u/18/9/18/dvncewkhop.jpg);
+        mix-blend-mode: multiply;
+        width: 300px;
+    }
+
+    @keyframes myAnimation{
+        0%{
+          opacity: 1;
+          transform: rotateX(90deg);
+        }
+        50%{
+          opacity: 1;
+          transform: rotateX(0deg);
+        }
+        100%{
+          display: none;
+          opacity: 0;
+          transform: rotateX(90deg);
+        }
+      }
+      
+      div.cookie{
+          /*animation-name: myAnimation;*/
+          animation-duration: 2000ms;
+          animation-fill-mode: both;
+          animation-iteration-count: 1;
+          position: relative;
+          top: -50px;
+      }
+     
+   
+    
